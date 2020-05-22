@@ -1,0 +1,22 @@
+ul.global.numbers li{
+    width: 15.5%;
+    list-style: none;
+    background: #000;
+    padding: 15px 0;
+    text-align: center;
+    color: #fff;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+ul.global.numbers {
+    display: flex;
+    flex-direction: row;
+}
+ul.global.labels {
+    display: flex;
+    list-style: none;
+}
+ul.global.labels li {
+    width: 16.2%;
+    text-align: center;
+}
