@@ -1,3 +1,5 @@
 const PREFIX = 'COVID_'
 
 export const COVID_SUMMARY = PREFIX + 'SELECT';
+
+export const COVID_COUNTRYLIST = PREFIX + 'COUNTRY';

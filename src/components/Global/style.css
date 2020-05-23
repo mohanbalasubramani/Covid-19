@@ -7,16 +7,21 @@ ul.global.numbers li{
     color: #fff;
     border-radius: 20px;
     margin-left: 10px;
+    text-transform: capitalize;
 }
 ul.global.numbers {
     display: flex;
     flex-direction: row;
+    padding: 0;
 }
-ul.global.labels {
-    display: flex;
-    list-style: none;
-}
-ul.global.labels li {
-    width: 16.2%;
-    text-align: center;
+
+@media screen and (max-width: 767px){
+    ul.global.numbers li{
+        width: 100%;
+        margin-bottom: 10px;
+        margin-left: 5px;
+    }
+    ul.global.numbers{
+        flex-direction: column;
+    }
 }

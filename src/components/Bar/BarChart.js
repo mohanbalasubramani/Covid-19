@@ -4,24 +4,24 @@ import HighchartsReact from 'highcharts-react-official';
 
 function BarChart(props) {
 
-    const [data, setData] = useState([]),
-          [categories, setCategories] = useState([]);
+    const [ data, setData ] = useState( null ),
+          [ categories, setCategories ] = useState( null );
 
     useEffect(() => {
-        handleConsent();
+        const handleConsent = () => {
+            let myData=[],categoriess=[];
+            props.countryRecords.slice(0,15).map((val)=>{
+            myData.push([val.cases]);
+            return categoriess.push(val.country);
+            })
+            setData(myData);
+            setCategories(categoriess);
+        }
         
-    },[])
+        handleConsent();
+    },[ props.countryRecords ])
 
-    const handleConsent = () => {
-        let myData=[],categoriess=[];
-        props.totalConfirmed.slice(0,15).map((val)=>{
-        myData.push([val.TotalConfirmed]);
-        categoriess.push(val.Country)
-        })
-        setData(myData);
-        setCategories(categoriess)
-        console.log("categories",categoriess,myData)
-    }
+    
     const options = {
         chart: {
             type: 'column'
@@ -30,7 +30,7 @@ function BarChart(props) {
             text: `COVID'19 World count`
         },
         subtitle: {
-            text: `Source: <a href="https://covid19api.com/" target="_blank">COVID'19</a>`
+            text: `Source: <a href="https://coronavirus-19-api.herokuapp.com/" target="_blank">COVID'19</a>`
         },
         xAxis: {
             categories:  categories ,
@@ -48,9 +48,6 @@ function BarChart(props) {
                 overflow: 'justify'
             }
         },
-        tooltip: {
-            valueSuffix: ' counts'
-        },
         plotOptions: {
             bar: {
                 dataLabels: {
@@ -65,7 +62,8 @@ function BarChart(props) {
             enabled: false
         },
         series: [{
-            name: 'Countries',
+            colorByPoint: true,
+            name: 'Count',
             data: data
         }]
     };

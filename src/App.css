@@ -13,3 +13,9 @@ header.header.name {
   color: red;
   padding-right: 15px;
 }
+.body.content{
+  padding: 0 10px;
+}
+.chart.section{
+  margin-top: 70px;
+}
