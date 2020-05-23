@@ -4,22 +4,19 @@ import { bindActionCreators } from 'redux';
 import { covidSummary } from '../src/actions/chart';
 import Global from '../src/components/Global';
 import BarChart from '../src/components/Bar';
+import Pie from '../src/components/Pie';
 import './App.css';
 
-function App( props ) {
+function App(props) {
 
   useEffect(() => {
-    props.covidSummary();
-  }, [])
+    if (!props.countryRecords) props.covidSummary();
+  })
 
-  if (!props.globalData) return false;
+  if (!props.countryRecords) return false;
 
-  const handleDateFormat = ( dateObj ) => {
-    return dateObj.split('T')[0];
-  }
-
-  const handleBlink = () => {
-
+  const handleDateFormat = (dateObj) => {
+    return dateObj.split('2020')[0];
   }
 
   return (
@@ -27,17 +24,25 @@ function App( props ) {
       <header className="header name">
         <h2>COVID'19 Latest News</h2>
       </header>
-      <p className="date">{ handleDateFormat(props.globalData.Date) }</p>
-      <Global globalData={ props.globalData } />
-      <BarChart totalConfirmed={ props.totalConfirmed } />
+      <div className="body content">
+        <p className="date">{handleDateFormat(Date())}</p>
+
+        <Global />
+        <div className="row chart section">
+        <div className="col-md-6">
+          <BarChart countryRecords={props.countryRecords} />
+        </div>
+        <div className="col-md-6">
+          <Pie />
+        </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 const mapStateToProps = state => ({
-  all: state,
-  globalData: state.covid.allData,
-  totalConfirmed: state.covid.totalConfirmed,
+  countryRecords: state.covid.countryRecords
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ covidSummary }, dispatch);

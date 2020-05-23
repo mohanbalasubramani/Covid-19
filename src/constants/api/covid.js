@@ -1,3 +1,5 @@
-const DOMAIN = 'https://api.covid19api.com/';
+const DOMAIN = 'https://coronavirus-19-api.herokuapp.com/';
 
-export const COVID_SUMMARY = DOMAIN + 'summary';
+export const COVID_SUMMARY = DOMAIN + 'countries';
+
+export const COVID_COUNTRY_NAME = DOMAIN + 'countries/{id}';

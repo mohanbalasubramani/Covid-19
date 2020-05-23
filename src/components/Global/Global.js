@@ -1,23 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import './style.css'
 
-class Global extends Component {
-    
+class Global extends PureComponent {
+
     render() {
         return (
             <>
-                <ul className="global labels">
-                    {
-                        this.props.all.Global && Object.keys(this.props.all.Global).map((val,index) =>
-                            <li key={index}>{val}</li>
-                        )
-                    }
-                </ul>
                 <ul className="global numbers">
                     {
-                        this.props.all.Global && Object.values(this.props.all.Global).map((val,index) =>
-                            <li key={index}>{val.toLocaleString()}</li>
+                        this.props.globalData && Object.values(this.props.globalData).map((val, index) =>
+                            index !== 0 ? <li key={index}> <p>{Object.keys(this.props.globalData)[index].replace(/([a-z](?=[A-Z]))/g, '$1 ')}</p>  {val.toLocaleString()}</li> : null
                         )
                     }
                 </ul>
@@ -27,7 +20,7 @@ class Global extends Component {
 }
 
 const mapStateToProps = state => ({
-    all: state.covid.allData
+    globalData: state.covid.globalRecords
 });
 
 export default connect(mapStateToProps)(Global);
