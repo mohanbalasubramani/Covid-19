@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { covidSummary } from '../src/actions/chart';
-import Global from '../src/components/Global';
-import BarChart from '../src/components/Bar';
-import Pie from '../src/components/Pie';
+import { covidSummary } from './actions/chart';
+import Global from './components/Global';
+import BarChart from './components/Bar';
+import Pie from './components/Pie';
+import Search from './components/Search';
 import './App.css';
 
 function App(props) {
@@ -22,19 +23,19 @@ function App(props) {
   return (
     <div className="app">
       <header className="header name">
-        <h2>COVID'19 Latest News</h2>
+        <h2>COVID'19 Latest Updates</h2>
       </header>
       <div className="body content">
         <p className="date">{handleDateFormat(Date())}</p>
-
         <Global />
+        <Search countryRecords={props.countryRecords} />
         <div className="row chart section">
-        <div className="col-md-6">
-          <BarChart countryRecords={props.countryRecords} />
-        </div>
-        <div className="col-md-6">
-          <Pie />
-        </div>
+          <div className="col-md-6">
+            <BarChart countryRecords={props.countryRecords} />
+          </div>
+          <div className="col-md-6">
+            <Pie />
+          </div>
         </div>
       </div>
     </div>
