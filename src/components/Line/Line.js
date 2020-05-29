@@ -13,22 +13,20 @@ function Line(props) {
     const [categories, setCategories] = useState(null),
         [series, setSeries] = useState(null),
         [option, setSelectedOption] = useState('IN'),
-        [active, setActive] = useState(false)
+        [active, setActive] = useState(true)
 
     useEffect(() => {
 
         if (!props.timeLineRecords) props.covidTimeLine('IN');
-        if (props.timeLineRecords) handleCountry();
+        if (props.timeLineRecords && active) handleCountry();
 
-    }, [props.timeLineRecords]);
+    });
 
     const handleCountry = () => {
         let keys = Object.keys(props.timeLineRecords), values = Object.values(props.timeLineRecords),
             series = [];
         keys.pop(); values.pop();
-        values.map((val, index) => {
-            val.date = keys[index];
-        });
+        values.map((val, index) => val.date = keys[index] );
 
         const grouped = groupBy(values, value => value.date);
 
@@ -43,7 +41,7 @@ function Line(props) {
         })
         setSeries(series);
         setCategories(keys);
-        setActive(true)
+        setActive(false)
     }
 
     const groupBy = (list, keyGetter) => {
@@ -61,7 +59,7 @@ function Line(props) {
     }
 
     const handleChange = (e) => {
-        setActive(false)
+        setActive(true)
         props.covidTimeLine(e.target.value);
         setSelectedOption(e.target.value);
     }
@@ -129,7 +127,7 @@ function Line(props) {
                 }
 
             </select>
-            {!active ? <ActivityIndicator medium /> :
+            {active ? <ActivityIndicator medium /> :
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={options} />

@@ -6,9 +6,9 @@ function Search(props) {
     const [country, setCountry] = useState(null);
 
     const handleChange = (e) => {
-        let values = props.countryRecords.filter((data) => {
-            if ( data.country.toUpperCase().indexOf(e.target.value.toUpperCase()) !== -1 ) return data;
-        });
+        let values = props.countryRecords.filter((data) => ( 
+            data.country.toUpperCase().indexOf(e.target.value.toUpperCase()) !== -1 ) 
+        );
         setCountry(values);
     }
 

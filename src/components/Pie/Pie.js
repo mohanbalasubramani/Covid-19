@@ -15,9 +15,9 @@ function Pie(props) {
         [active, setActive] = useState(true);
 
     useEffect(() => {
-        if (!countryInfo) props.covidCountryList('India');
-        if (props.contryDetails) handleCountry();
-    }, [props.contryDetails]);
+        if (!props.contryDetails) props.covidCountryList('India');
+        if (props.contryDetails && active) handleCountry();
+    });
 
 
     const handleCountry = () => {
