@@ -21,13 +21,12 @@ function Pie(props) {
 
 
     const handleCountry = () => {
-        let myData = [];
-        let keys = Object.keys(props.contryDetails), values = Object.values(props.contryDetails);
-        keys.forEach((data) => myData.push({ name: data }));
-        values.forEach((data, index) => myData[index].y = data);
-        myData.shift();
-        setCountryInfo(myData)
-        setActive(false)
+        let keys = Object.keys(props.contryDetails), values = Object.values(props.contryDetails),detailList = [];
+            keys.forEach((data) => detailList.push({ name: data }));
+        values.forEach((data, index) => detailList[index].y = data);
+        detailList.shift();
+        setCountryInfo(detailList);
+        setActive(false);
     }
 
     const handleChange = (e) => {
