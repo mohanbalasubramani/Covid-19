@@ -5,13 +5,15 @@ import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import { covidTimeLine } from '../../actions/chart';
 import { topTenCountry, cases } from '../../utilities/data';
+import ActivityIndicator from '../ActivityIndicator';
 import './style.css';
 
 function Line(props) {
 
     const [categories, setCategories] = useState(null),
         [series, setSeries] = useState(null),
-        [option, setSelectedOption ] = useState( 'IN' );
+        [option, setSelectedOption] = useState('IN'),
+        [active, setActive] = useState(false)
 
     useEffect(() => {
 
@@ -21,7 +23,7 @@ function Line(props) {
     }, [props.timeLineRecords]);
 
     const handleCountry = () => {
-        let keys = Object.keys(props.timeLineRecords), values = Object.values(props.timeLineRecords),            
+        let keys = Object.keys(props.timeLineRecords), values = Object.values(props.timeLineRecords),
             series = [];
         keys.pop(); values.pop();
         values.map((val, index) => {
@@ -32,7 +34,7 @@ function Line(props) {
 
         cases.forEach((data) => series.push({ name: data, data: [] }));
 
-        grouped.forEach((data,i) => {
+        grouped.forEach((data, i) => {
             series[0].data.push(data[0].new_daily_cases);
             series[1].data.push(data[0].new_daily_deaths);
             series[2].data.push(data[0].total_recoveries);
@@ -41,6 +43,7 @@ function Line(props) {
         })
         setSeries(series);
         setCategories(keys);
+        setActive(true)
     }
 
     const groupBy = (list, keyGetter) => {
@@ -58,8 +61,9 @@ function Line(props) {
     }
 
     const handleChange = (e) => {
-        props.covidTimeLine( e.target.value );
-        setSelectedOption( e.target.value );
+        setActive(false)
+        props.covidTimeLine(e.target.value);
+        setSelectedOption(e.target.value);
     }
 
     const options = {
@@ -112,8 +116,9 @@ function Line(props) {
 
     return (
         <div className="line chart">
+
             <label className="labels country" htmlFor="country">Please select a country:</label>
-            <select name="country" id="country" onChange={ handleChange } defaultValue={'IN'} className="form-control col-md-2 col-xs-12">
+            <select name="country" id="country" onChange={handleChange} defaultValue={'IN'} className="form-control col-md-2 col-xs-12">
                 {
                     topTenCountry.map((val, index) =>
                         <option value={val.code}
@@ -124,9 +129,12 @@ function Line(props) {
                 }
 
             </select>
-            <HighchartsReact
-                highcharts={Highcharts}
-                options={options} />
+            {!active ? <ActivityIndicator medium /> :
+                <HighchartsReact
+                    highcharts={Highcharts}
+                    options={options} />
+
+            }
         </div>
     )
 }
