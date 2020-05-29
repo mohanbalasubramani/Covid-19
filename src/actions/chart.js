@@ -20,3 +20,12 @@ export const covidCountryList = ( country ) => {
         .catch( err => console.error( err ) );
     }
 }
+
+export const covidTimeLine = (countryCode) => {
+    return dispatch => {
+        axios
+        .get( API.COVID_TIMELINE_COUNTRY.replace('{countryCode}',countryCode) )
+        .then( res => dispatch ({ type: Constants.COVID_TIMELINE, payload: res.data.timelineitems[0] }) )
+        .catch( err => console.error( err ) );
+    }
+}

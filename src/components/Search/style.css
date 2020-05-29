@@ -6,14 +6,15 @@ ul.search{
 }
 ul.search li {
     padding: 10px;
-    -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
-    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 3px 2px 3px 0px rgba(50, 50, 50, 0.75);
     border: 1px solid #ccc;
     border-radius: 5px;
+    background: #1d408e;
+    color: #fff;
+    margin: 0 3px;
 }
 .search.content input{
-    display: inline;
+    display: inline-block;
     width: 25%;
     margin-left: 12px;
 }

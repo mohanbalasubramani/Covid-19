@@ -6,6 +6,7 @@ import Global from './components/Global';
 import BarChart from './components/Bar';
 import Pie from './components/Pie';
 import Search from './components/Search';
+import Line from './components/Line';
 import './App.css';
 
 function App(props) {
@@ -29,13 +30,14 @@ function App(props) {
         <p className="date">{handleDateFormat(Date())}</p>
         <Global />
         <Search countryRecords={props.countryRecords} />
+        <Line/>
         <div className="row chart section">
           <div className="col-md-6">
             <BarChart countryRecords={props.countryRecords} />
           </div>
           <div className="col-md-6">
             <Pie />
-          </div>
+          </div> 
         </div>
       </div>
     </div>
